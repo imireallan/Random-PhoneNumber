@@ -7,7 +7,8 @@ import {
   MatGridListModule,
   MatCardModule,
   MatButtonModule,
-  MatTableModule
+  MatTableModule,
+  MatPaginatorModule
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -28,7 +29,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     FormsModule,
     MatInputModule,
     MatButtonModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

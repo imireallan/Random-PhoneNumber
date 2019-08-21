@@ -1,16 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { PhoneNumber } from '../shared/phone-number';
-
-const PHONE_NUMBER_DATA: PhoneNumber[] = [
-  { id: 1, number: '0302689639' },
-  { id: 2, number: '0562728162' },
-  { id: 3, number: '0302689639' },
-  { id: 4, number: '0302689639' },
-  { id: 5, number: '0302689639' },
-  { id: 6, number: '0302689639' },
-  { id: 7, number: '0302689639' }
-];
+import { RandomGenerateServiceService } from '../random-generate-service.service';
+import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
+import { SaveToSheetService } from '../save-to-sheet.service';
 
 @Component({
   selector: 'app-random-number',
@@ -18,18 +10,34 @@ const PHONE_NUMBER_DATA: PhoneNumber[] = [
   styleUrls: ['./random-number.component.scss']
 })
 export class RandomNumberComponent implements OnInit {
-  constructor() {}
   displayedColumns: string[] = ['id', 'number'];
-  datasource = PHONE_NUMBER_DATA;
   totalPhoneNumbers = 5;
-  maxNumber = '03433353';
-  minNumber = '0111111';
+  maxNumber: string;
+  minNumber: string;
 
+  dataSource = new MatTableDataSource();
 
+  constructor(
+    private randomNumberService: RandomGenerateServiceService,
+    private exportExcel: SaveToSheetService
+  ) {}
+
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   phoneNumberControls = new FormControl('', [
     Validators.required,
     Validators.max(10000)
   ]);
+
+  generatePhoneNumbers(): void {
+    this.dataSource.data = [];
+    this.randomNumberService.generatePhoneNumbers(
+      this.phoneNumberControls.value
+    );
+    this.dataSource.data = this.randomNumberService.phoneNumberList;
+    this.maxNumber = '0'.concat(this.randomNumberService.maxNumber.toString());
+    this.minNumber = '0'.concat(this.randomNumberService.minNumber.toString());
+  }
 
   getError(): string {
     if (this.phoneNumberControls.getError('max')) {
@@ -40,5 +48,14 @@ export class RandomNumberComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+  saveToSheet() {
+    this.exportExcel.exportDataToExcel(
+      [...this.dataSource.data],
+      'generated_phone_numbers'
+    );
+  }
 }

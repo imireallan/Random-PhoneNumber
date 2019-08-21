@@ -1,107 +1,70 @@
 <!-- As a heading -->
 <div class="grid-container">
-  <nav class="navbar navbar-light bg-primary">
-    <span class="">RNG</span>
+  <nav class="navbar navbar-light">
+    <span>RNG</span>
   </nav>
   <div class="ui-container">
     <div class="container">
       <header class="top-panel">
-        <div class="meta">
-          <h1 class="badge badge-light p-3 mr-2">
-            Total Numbers: 4
+        <div class="meta" [hidden]="!dataSource.data.length">
+          <h1 class="badge light p-3 mr-2">
+            Total Numbers: {{ dataSource.data.length }}
           </h1>
-          <h1 class="badge badge-light p-3 mr-2">
-            Min Num: 4
-          </h1>
-          <h1 class="badge badge-light p-3 mr-2">
-            Max Num: 4
-          </h1>
+          <h1 class="badge light p-3 mr-2">Min Num: {{ minNumber }}</h1>
+          <h1 class="badge light p-3 mr-2">Max Num: {{ maxNumber }}</h1>
         </div>
       </header>
       <main>
-        <!-- <div class="card generate">
-          <div class="card-header">
-            Generate Random Number
-          </div>
-          <div class="card-body">
-            <mat-form-field appearance="outline">
-              <mat-label>Number to generate</mat-label>
-              <input
-                matInput
-                type="number"
-                placeholder="1 - 10000"
-                [formControl]="phoneNumberControls"
-              />
-              <mat-error
-                *ngIf="
-                  phoneNumberControls.hasError('max') ||
-                  phoneNumberControls.hasError('required')
-                "
-              >
-                {{ getError() }}
-              </mat-error>
-            </mat-form-field>
-
-            <button
-              class="btn btn-primary btn-lg"
-              [disabled]="
-                phoneNumberControls.hasError('max') ||
-                phoneNumberControls.hasError('required') ||
-                !phoneNumberControls.value
-              "
-            >
-              Generate Numbers
-            </button>
-          </div>
-        </div> -->
         <mat-card class="card">
-            <mat-card-header>
-                <mat-card-title>Random PhoneNumber</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <mat-grid-list cols="1" rowHeight="100px">
-                <mat-grid-tile>
-                    <mat-form-field appearance="outline">
-                    <mat-label>Number to generate</mat-label>
-                    <input
-                        matInput
-                        type="number"
-                        placeholder="1 - 10000"
-                        [formControl]="phoneNumberControls"
-                    />
-                    <mat-error
-                        *ngIf="
-                        phoneNumberControls.hasError('max') ||
-                        phoneNumberControls.hasError('required')
-                        "
-                    >
-                        {{ getError() }}
-                    </mat-error>
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <button
-                    mat-raised-button
-                    class="btn btn-primary"
-                    [disabled]="
-                        phoneNumberControls.hasError('max') ||
-                        phoneNumberControls.hasError('required') ||
-                        !phoneNumberControls.value
+          <mat-card-header>
+            <mat-card-title>Random PhoneNumber</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-grid-list cols="1" rowHeight="100px">
+              <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                  <mat-label>Number to generate</mat-label>
+                  <input
+                    matInput
+                    type="number"
+                    placeholder="1 - 10000"
+                    [formControl]="phoneNumberControls"
+                  />
+                  <mat-error
+                    *ngIf="
+                      phoneNumberControls.hasError('max') ||
+                      phoneNumberControls.hasError('required')
                     "
-                    >
-                    Generate numbers
-                    </button>
-                </mat-grid-tile>
-                </mat-grid-list>
-            </mat-card-content>
+                  >
+                    {{ getError() }}
+                  </mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <button
+                  mat-raised-button
+                  class="btn btn-primary"
+                  [disabled]="
+                    phoneNumberControls.hasError('max') ||
+                    phoneNumberControls.hasError('required') ||
+                    !phoneNumberControls.value
+                  "
+                  (click)="generatePhoneNumbers()"
+                >
+                  Generate numbers
+                </button>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </mat-card-content>
         </mat-card>
-        <div class="card phones">
+        <div class="card phones" [hidden]="!dataSource.data.length">
           <div class="card-body">
             <table
               mat-table
-              [dataSource]="datasource"
+              [dataSource]="dataSource"
               class="mat-elevation-z8"
               style="width: 100%"
+              matSort
             >
               <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef>Id</th>
@@ -118,9 +81,25 @@
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             </table>
+
+            <mat-paginator
+              [length]="100"
+              [pageSize]="5"
+              [pageSizeOptions]="[5, 10, 20]"
+              showFirstLastButtons
+            ></mat-paginator>
           </div>
         </div>
       </main>
+      <button
+        [hidden]="!dataSource.data.length"
+        mat-raised-button
+        color="primary"
+        class="excel"
+        (click)="saveToSheet()"
+      >
+        <img src="../../assets/Group.svg" />
+      </button>
     </div>
   </div>
 </div>

@@ -4,6 +4,12 @@
     height: 300px;
     display: grid;
     align-items: start;
+    background: #3f51b5;
+    span {
+        font-size: 2em;
+        color: #fff;
+        font-weight: bold;
+    }
   }
 
   .ui-container {
@@ -15,12 +21,18 @@
 
     .container {
       display: grid;
-      grid-template-rows: 100px 1fr;
+      grid-template-rows: 100px 1fr 50px;
       .top-panel {
-          .meta {
-              display: flex;
-              justify-content: space-between;
+          .light {
+              background: rgba(255, 255, 255, .57);
+              color: #fff;
+              font-size: 1.5em;
           }
+        .meta {
+          display: flex;
+          justify-content: space-between;
+        }
+
       }
       main {
         display: grid;
@@ -42,7 +54,16 @@
         .card.phones {
           display: grid;
           justify-items: stretch;
+          background: none;
+          border: none;
         }
+      }
+      .excel {
+        margin: 0 auto;
+        margin-top: 1em;
+        width: 5em;
+        height: 5em;
+        border-radius: 50%;
       }
     }
   }
