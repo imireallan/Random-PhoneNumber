@@ -1,0 +1,126 @@
+<!-- As a heading -->
+<div class="grid-container">
+  <nav class="navbar navbar-light bg-primary">
+    <span class="">RNG</span>
+  </nav>
+  <div class="ui-container">
+    <div class="container">
+      <header class="top-panel">
+        <div class="meta">
+          <h1 class="badge badge-light p-3 mr-2">
+            Total Numbers: 4
+          </h1>
+          <h1 class="badge badge-light p-3 mr-2">
+            Min Num: 4
+          </h1>
+          <h1 class="badge badge-light p-3 mr-2">
+            Max Num: 4
+          </h1>
+        </div>
+      </header>
+      <main>
+        <!-- <div class="card generate">
+          <div class="card-header">
+            Generate Random Number
+          </div>
+          <div class="card-body">
+            <mat-form-field appearance="outline">
+              <mat-label>Number to generate</mat-label>
+              <input
+                matInput
+                type="number"
+                placeholder="1 - 10000"
+                [formControl]="phoneNumberControls"
+              />
+              <mat-error
+                *ngIf="
+                  phoneNumberControls.hasError('max') ||
+                  phoneNumberControls.hasError('required')
+                "
+              >
+                {{ getError() }}
+              </mat-error>
+            </mat-form-field>
+
+            <button
+              class="btn btn-primary btn-lg"
+              [disabled]="
+                phoneNumberControls.hasError('max') ||
+                phoneNumberControls.hasError('required') ||
+                !phoneNumberControls.value
+              "
+            >
+              Generate Numbers
+            </button>
+          </div>
+        </div> -->
+        <mat-card class="card">
+            <mat-card-header>
+                <mat-card-title>Random PhoneNumber</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-grid-list cols="1" rowHeight="100px">
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                    <mat-label>Number to generate</mat-label>
+                    <input
+                        matInput
+                        type="number"
+                        placeholder="1 - 10000"
+                        [formControl]="phoneNumberControls"
+                    />
+                    <mat-error
+                        *ngIf="
+                        phoneNumberControls.hasError('max') ||
+                        phoneNumberControls.hasError('required')
+                        "
+                    >
+                        {{ getError() }}
+                    </mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <button
+                    mat-raised-button
+                    class="btn btn-primary"
+                    [disabled]="
+                        phoneNumberControls.hasError('max') ||
+                        phoneNumberControls.hasError('required') ||
+                        !phoneNumberControls.value
+                    "
+                    >
+                    Generate numbers
+                    </button>
+                </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card-content>
+        </mat-card>
+        <div class="card phones">
+          <div class="card-body">
+            <table
+              mat-table
+              [dataSource]="datasource"
+              class="mat-elevation-z8"
+              style="width: 100%"
+            >
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>Id</th>
+                <td mat-cell *matCellDef="let phoneNumber">
+                  {{ phoneNumber.id }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="number">
+                <th mat-header-cell *matHeaderCellDef>Number</th>
+                <td mat-cell *matCellDef="let phoneNumber">
+                  {{ phoneNumber.number }}
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>

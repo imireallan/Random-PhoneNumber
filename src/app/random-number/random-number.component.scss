@@ -1,0 +1,49 @@
+.grid-container {
+  position: relative;
+  nav {
+    height: 300px;
+    display: grid;
+    align-items: start;
+  }
+
+  .ui-container {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    padding-top: 150px;
+
+    .container {
+      display: grid;
+      grid-template-rows: 100px 1fr;
+      .top-panel {
+          .meta {
+              display: flex;
+              justify-content: space-between;
+          }
+      }
+      main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        .card.generate {
+          .card-body {
+            display: grid;
+            justify-items: start;
+            align-items: start;
+
+            button {
+              justify-self: center;
+              border-radius: 5px;
+            }
+          }
+        }
+
+        .card.phones {
+          display: grid;
+          justify-items: stretch;
+        }
+      }
+    }
+  }
+}
