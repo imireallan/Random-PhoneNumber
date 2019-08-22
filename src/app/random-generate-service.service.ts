@@ -9,7 +9,7 @@ export class RandomGenerateServiceService {
   minNumber: number;
   phoneNumberList: PhoneNumber[];
 
-  randomNumberGenerator(): number {
+  private randomNumberGenerator(): number {
     return Math.floor(Math.random() * (1000000000 - 100000000)) + 100000000;
   }
 
@@ -33,5 +33,4 @@ export class RandomGenerateServiceService {
     this.maxNumber = Math.max(...phoneNumbers);
     this.minNumber = Math.min(...phoneNumbers);
   }
-
 }

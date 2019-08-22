@@ -8,7 +8,9 @@ import {
   MatCardModule,
   MatButtonModule,
   MatTableModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  ErrorStateMatcher,
+  ShowOnDirtyErrorStateMatcher
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -32,7 +34,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     MatTableModule,
     MatPaginatorModule
   ],
-  providers: [],
+  providers: [
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

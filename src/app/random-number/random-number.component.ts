@@ -23,7 +23,7 @@ export class RandomNumberComponent implements OnInit {
   ) {}
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   phoneNumberControls = new FormControl('', [
     Validators.required,
     Validators.max(10000)

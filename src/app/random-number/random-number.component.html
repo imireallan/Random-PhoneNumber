@@ -15,7 +15,7 @@
         </div>
       </header>
       <main>
-        <mat-card class="card">
+        <mat-card>
           <mat-card-header>
             <mat-card-title>Random PhoneNumber</mat-card-title>
           </mat-card-header>
@@ -40,7 +40,7 @@
                   </mat-error>
                 </mat-form-field>
               </mat-grid-tile>
-              <mat-grid-tile>
+              <mat-grid-tile class="card1">
                 <button
                   mat-raised-button
                   class="btn btn-primary"
@@ -58,7 +58,7 @@
           </mat-card-content>
         </mat-card>
         <div class="card phones" [hidden]="!dataSource.data.length">
-          <div class="card-body">
+          <div class="card-body" id="table">
             <table
               mat-table
               [dataSource]="dataSource"
@@ -83,7 +83,6 @@
             </table>
 
             <mat-paginator
-              [length]="100"
               [pageSize]="5"
               [pageSizeOptions]="[5, 10, 20]"
               showFirstLastButtons
